@@ -1,11 +1,11 @@
 # pdnStudent
 Student database system for profile pages
 
-Setup
+<h3>Setup</h3>
 
-git clone <repo url>
- 
+git clone {repo url}
+<hr>
 cd intern-angular
-  
+<hr>
 npm install
 npm start
