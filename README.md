@@ -7,5 +7,5 @@ git clone {repo url}
 <hr>
 cd intern-angular
 <hr>
-npm install
+npm install<br>
 npm start
