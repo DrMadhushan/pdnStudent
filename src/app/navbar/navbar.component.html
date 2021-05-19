@@ -1,0 +1,27 @@
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-light" style="background-color:#ebebebd5;">
+    <!-- Container wrapper -->
+    <div class="container-fluid">
+  
+      <!-- Navbar brand -->
+      <a class="navbar-brand" href="#">
+        <img
+          src="assets/img/StudentProfileLogo.png"
+          class="img-fluid"
+          alt="Brand"
+          style="width:100px; height: 100%;"
+        />
+      </a>
+  
+      <ul class="navbar-nav d-flex flex-row me-1">
+        <li class="nav-item me-3 me-lg-0" *ngIf="isLoggedIn">
+          <a (click)="logout()" class="nav-link" href="#" data-mdb-toggle="tooltip" title="sign out">SIGN OUT&nbsp;<i class="fas fa-sign-out-alt"></i></a>
+        </li>
+        <!-- <li class="nav-item me-3 me-lg-0">
+          <a class="nav-link" href="#" data-mdb-toggle="tooltip" title="sign up"><i class="fas fa-user-plus"></i></a>
+        </li> -->
+      </ul>     
+    </div>
+    <!-- Container wrapper -->
+  </nav>
+  <!-- Navbar -->

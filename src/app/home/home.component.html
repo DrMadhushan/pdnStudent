@@ -1,0 +1,67 @@
+<div class="vh-100 vw-100">
+    <div
+class="d-flex align-items-center justify-content-center p-5 vh-100 vw-100"
+style="height: 100%;"
+>
+    <div>
+        <div class="d-flex align-items-center justify-content-center pb-4">
+            <img
+            src="assets/img/StudentProfileLogo.png"
+            class="img-fluid"
+            alt="Brand"
+            style="width:200px; height: 100%;"
+            />
+        </div>
+    
+        <div class="input-group d-flex align-items-center justify-content-center">
+            <div class="input-group shadow">
+                <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search"
+                  aria-describedby="search-addon" />
+            </div>
+            <div class="pt-3">
+                <button 
+                (click)="viewProfile()" 
+                type="button" 
+                class="btn btn-primary btn-rounded shadow">
+                    Search &nbsp; <i class="fas fa-user-graduate"></i> 
+                </button>
+            </div>
+        </div>
+        <hr>
+        <div class="d-flex justify-content-between">
+            <div><button 
+                (click)="signin()" 
+                type="button" 
+                class="btn btn-dark btn-rounded shadow" 
+                style="text-decoration: none;">
+                    Sign in &nbsp; <i class="fas fa-sign-in-alt"></i>
+                </button>
+            </div>
+            <div>
+                <button 
+                type="button" 
+                class="btn btn-dark btn-rounded shadow disabled"
+                mdbPopover="Contact Web Consultation Team admin for more information"
+                mdbPopoverTitle="Can't sign-up through this app">
+                Sign Up &nbsp; <i class="fas fa-user-plus"></i>
+                </button>
+            </div>
+        </div>
+        <hr>
+        <div class="justify-content-between text-center p-2">
+            <div class="pb-2">
+                <a href="#" target="_blank" style="color: rgb(102, 102, 102);">
+                    <i class="fas fa-hands-helping"></i> &nbsp; Web Consultation Team
+                </a>
+            </div>
+            <div class="pb-2">
+                <a href="#" target="_blank" style="color: rgb(102, 102, 102);">
+                    <i class="fas fa-university"></i> &nbsp; University of Peradeniya
+                </a>
+            </div>
+            
+        </div>
+    </div> 
+    </div>
+     
+</div>

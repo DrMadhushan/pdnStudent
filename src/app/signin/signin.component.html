@@ -1,0 +1,68 @@
+<div class="vh-100 vw-100">
+    <div
+class="d-flex align-items-center justify-content-center p-5 vh-100 vw-100"
+style="height: 100%;"
+>
+    <div>
+        <div class="d-flex align-items-center justify-content-center pb-4">
+            <img
+            src="assets/img/StudentProfileLogo.png"
+            class="img-fluid"
+            alt="Brand"
+            style="width:200px; height: 100%;"
+            />
+        </div>
+    
+        
+        <div class="d-flex justify-content-between">
+            <form>
+                <!-- Email input -->
+                <div class="form-outline mb-4">
+                  <label class="form-label" for="form1Example1">Email address</label>
+                  <input ngModel required type="email" required email #email="ngModel" id="form1Example1" class="form-control" />
+                  <div class="alert alert-danger" *ngIf="!email.valid">Email is must</div>
+                </div>
+              
+                <!-- Password input -->
+                <div class="form-outline mb-4">
+                  <label class="form-label" for="form1Example2">Password</label>
+                  <input ngModel #password type="password" id="form1Example2" class="form-control" />
+                </div>
+              
+                <!-- 2 column grid layout for inline styling -->
+                <div class="row mb-4">
+                  <div class="col d-flex justify-content-center">
+                    
+                    <div class="form-check">
+                      <input
+                        class="form-check-input"
+                        type="checkbox"
+                        value=""
+                        id="form1Example3"
+                        checked
+                      />
+                      <label class="form-check-label" for="form1Example3"> Remember me </label>
+                    </div>
+                  </div>
+              
+                  <div class="col">
+                    
+                    <a href="#!">Forgot password?</a>
+                  </div>
+                </div>
+                
+                <!-- Submit button -->
+                <input class="button" (click)="onSignin(email.value,password.value)" class="btn btn-primary btn-block" value="Sign In"/>
+              </form>
+        </div>
+        
+    </div> 
+    </div>
+    <!-- <form>
+      <div> Email: <input type="text"/></div>
+      <div>Password: <input type="password"/></div>
+      <div><button (click)="onSignin(email.value, password.value)" type="button">Login</button></div>
+      
+    </form> -->
+     
+</div>
