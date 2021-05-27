@@ -1,9 +1,10 @@
 import { AuthService } from './../shared/services/auth.service';
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormGroup, FormsModule } from '@angular/forms';
 import { AngularFireAuth } from '@angular/fire/auth';
 // import { firebase } from '@angular/fire/';
+
 
 @Component({
   selector: 'app-signin',
@@ -27,7 +28,9 @@ export class SigninComponent implements OnInit {
     }
   }
 
-  
+  log(input:any){
+    console.log(input);
+  }
 
   /*
   onSignin(email:string, password:string){
