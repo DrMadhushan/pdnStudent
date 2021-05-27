@@ -5,7 +5,7 @@ import { RouterModule } from '@angular/router';
 import { AngularFireModule } from "@angular/fire";
 import { AngularFireAuthModule } from "@angular/fire/auth";
 import { AngularFirestoreModule } from '@angular/fire/firestore';
-
+import { FormGroup, FormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -34,6 +34,9 @@ import { EditExperienceComponent } from './edit-profile/edit-experience/edit-exp
 import { EditSkillsComponent } from './edit-profile/edit-skills/edit-skills.component';
 import { HomeComponent } from './home/home.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { NgForm } from '@angular/forms';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
+import { LogoMainComponent } from './logo-main/logo-main.component';
 
 @NgModule({
   declarations: [
@@ -60,7 +63,9 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
     EditExperienceComponent,
     EditSkillsComponent,
     HomeComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    ResetPasswordComponent,
+    LogoMainComponent
   ],
   imports: [
     BrowserModule,
@@ -70,7 +75,8 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
     RouterModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule,
-    AngularFirestoreModule
+    AngularFirestoreModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
