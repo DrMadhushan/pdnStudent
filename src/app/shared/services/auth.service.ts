@@ -25,8 +25,18 @@ export class AuthService {
   }
 
   logout(){
+    if(localStorage.getItem('user') != null)
     this.auth.signOut();
     localStorage.removeItem('user');
   }
 
+  sendResetPasswordEmail(email:any){
+    if(email != null){
+      firebase.auth().sendPasswordResetEmail(email)
+      .catch(function(error){
+        console.log(error.message);
+      });
+      window.alert("Reset password email has been sent to your email.\nPlease check and follow the instructions.");
+    }
+  }
 }
