@@ -13,6 +13,8 @@ import { AngularFireAuth } from '@angular/fire/auth';
 })
 export class SigninComponent implements OnInit {
   isSignedIn:boolean = false;
+  isWrongCredential:boolean = false;
+
   // constructor(public auth: AngularFireAuth, public router: Router) { }
   constructor (public authService: AuthService, public router: Router){}
   ngOnInit(): void {
@@ -25,6 +27,9 @@ export class SigninComponent implements OnInit {
     await this.authService.signIn(email,password);
     if(this.authService.isSignedIn){
       this.isSignedIn = true;
+    }
+    if (this.authService.isWrongCredential){
+      this.isWrongCredential = true;
     }
   }
 
