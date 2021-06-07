@@ -45,26 +45,29 @@ export class AuthService {
       console.log(error.code);
       this.router.navigate(['signin'])
     }).then(userCredentials => {
-      //ocalStorage.setItem('user',JSON.stringify(userCredential.user));
+      localStorage.setItem('user',this.getCurrentUser());
     });
   
-  this.isSignedIn = true; 
-  localStorage.setItem('user', this.getCurrentUser());
-  console.log("Current user: "+localStorage.getItem('user'));
+    this.isSignedIn = true; 
+    localStorage.setItem('user', this.getCurrentUser());
+    console.log("Current user: "+localStorage.getItem('user'));
 
-  if (localStorage.getItem('user') !="guest"){
-    this.router.navigate(['edit-profile']);
+    if (localStorage.getItem('user') !="guest"){
+      this.router.navigate(['edit-profile']);
+      return null;
+    }
+    this.isWrongCredential = true;
     return null;
-  }
-  this.isWrongCredential = true;
-  return null;
 
   }
 
   logout(){
-    if(localStorage.getItem('user') != null)
-    this.auth.signOut();
-    localStorage.removeItem('user');
+    if(localStorage.getItem('user') != 'guest'){
+      this.auth.signOut();
+      localStorage.setItem('user','guest');
+    }
+    this.router.navigate(['home']);
+    
   }
 
   sendResetPasswordEmail(email:any){

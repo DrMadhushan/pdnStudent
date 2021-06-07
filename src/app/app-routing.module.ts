@@ -1,3 +1,4 @@
+import { RouteResolver } from './resolvers/route.resolver';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { SigninComponent } from './signin/signin.component';
@@ -13,7 +14,7 @@ const routes: Routes = [
   {path: '', redirectTo: '/home', pathMatch: 'full' },
   {path: 'home', component: HomeComponent},
   {path: 'student-profile', component: StudentProfileComponent},
-  {path: 'edit-profile', component: EditProfileComponent},
+  {path: 'edit-profile', component: EditProfileComponent, resolve:{ data:RouteResolver }},
   {path: 'signin', component: SigninComponent},
   {path: 'reset-password', component: ResetPasswordComponent},
   {path: '**', component: PageNotFoundComponent}
@@ -22,8 +23,9 @@ const routes: Routes = [
 @NgModule({
   declarations: [],
   imports: [
-    CommonModule,
+    CommonModule, 
     RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
+  providers: [RouteResolver]
 })
 export class AppRoutingModule { }

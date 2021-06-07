@@ -1,0 +1,10 @@
+Profile pic get,update
+displayname get, update
+email get, delete, update
+Bio get, update
+Social profiles get, delete, create
+Education get, delete, create
+Experience get, delete, create
+Blogs get, delete, create
+skills get, delete, create
+reset password

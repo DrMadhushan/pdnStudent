@@ -5,7 +5,7 @@ import { RouterModule } from '@angular/router';
 import { AngularFireModule } from "@angular/fire";
 import { AngularFireAuthModule } from "@angular/fire/auth";
 import { AngularFirestoreModule } from '@angular/fire/firestore';
-import { FormGroup, FormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
 
 
@@ -36,9 +36,9 @@ import { EditExperienceComponent } from './edit-profile/edit-experience/edit-exp
 import { EditSkillsComponent } from './edit-profile/edit-skills/edit-skills.component';
 import { HomeComponent } from './home/home.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
-import { NgForm } from '@angular/forms';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { LogoMainComponent } from './logo-main/logo-main.component';
+import { NgForm } from '@angular/forms';
 
 @NgModule({
   declarations: [

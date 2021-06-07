@@ -11,7 +11,10 @@
             />
         </div>
         <div class="fs-4 fw-normal pt-3">
-            {{ userName }}
+            {{ userId }}
+            <hr>
+            <!-- <span *ngIf="name" [innerText]="name"></span> -->
+            {{ name }}
         </div>
         <button (click)="viewProfile()" type="button" class="btn btn-light btn-rounded">View Profile</button>
     </div>    
