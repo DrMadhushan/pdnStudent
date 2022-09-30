@@ -30,9 +30,9 @@ async def getFacultyStudents(faculty: str):
     return students
 
 @app.get("/students/{faculty}/{roll_no}")   # , status_code=status.HTTP_202_ACCEPTED
-async def getStudentInfo(roll_no: str):
+async def getStudentInfo(roll_no: str, faculty: str):
     # returns the requested student's details
-    student = await db.getStudentInfo(roll_no)
+    student = await db.getStudentInfo(roll_no, faculty)
     return student
 
 @app.get("/students/{faculty}/{department}")
@@ -42,7 +42,7 @@ async def getDepartmentStudents(faculty: str, department: str):
     return students
 
 @app.get("/students/{faculty}/{department}/{roll_no}")
-async def getStudentInfo(roll_no: str):
+async def getStudentInfo(roll_no: str, faculty: str, department: str):
     # returns the requested student's details
-    student = await db.getStudentInfo(roll_no)
+    student = await db.getStudentInfo(roll_no, faculty, department)
     return student
