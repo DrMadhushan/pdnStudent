@@ -1,11 +1,23 @@
 # pdnStudent
 Student database system for profile pages
 
-<h3>Setup</h3>
+Create virtual env
 
-git clone {repo url}
-<hr>
-cd intern-angular
-<hr>
-npm install<br>
-npm start
+    virtualenv fastApiVenv
+
+Activate v.env
+
+    source fastApiVenv/bin/activate
+
+Install packages
+
+    pin install <package name>
+
+["https://realpython.com/fastapi-python-web-apis/](FastAPI, uvicorn[standard], pymongo, motor==2.5.1 )
+
+
+
+To run the fast Api programm
+
+    uvicorn main:app --reload
+
