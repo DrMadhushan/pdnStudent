@@ -3,7 +3,7 @@ from pymongo import MongoClient, DESCENDING, ASCENDING
 from bson.objectid import ObjectId
 from student import student_meta_objectify, student_objectify
 import config.database as dbconfig
-from fastapi import HTTPException
+from fastapi import HTTPException, status
 
 
 client = motor.motor_asyncio.AsyncIOMotorClient(dbconfig.HOST)
@@ -13,10 +13,16 @@ students_collection = db.get_collection(dbconfig.STUDENTS_COLL)
 async def getAllStudents() -> list:
     # Get all students name and img link in a given department and faculty
     students = []
-    
     # Query database
-    result = students_collection.find({}, {'name':1, 'img':1, 'roll_no':1, '_id':0})
-
+    try:
+        result = students_collection.find({}, {'name':1, 'img':1, 'roll_no':1, '_id':0})
+    except:
+        raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Database error")
+    
+    if result == None:
+        # result from db is empty -> no such data found
+        raise HTTPException(status_code=404, detail="Item not found")
+        
     students_list = await result.to_list(None)
 
     for student in students_list:
@@ -27,7 +33,15 @@ async def getAllStudents() -> list:
 async def getFacultyStudents(faculty) -> list:
     students = []
     # Query database
-    result = students_collection.find({dbconfig.STUDENT_SCHEMA["faculty"] : faculty}, {'name':1, 'img':1, 'roll_no':1, '_id':0}).sort(dbconfig.STUDENT_SCHEMA["roll_no"], ASCENDING)
+    try:
+        result = students_collection.find({dbconfig.STUDENT_SCHEMA["faculty"] : faculty}, {'name':1, 'img':1, 'roll_no':1, '_id':0}).sort(dbconfig.STUDENT_SCHEMA["roll_no"], ASCENDING)
+    except:
+        raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Database error")
+    
+    if result == None:
+        # result from db is empty -> no such data found
+        raise HTTPException(status_code=404, detail="Item not found")
+        
     students_list = await result.to_list(None)
 
     for student in students_list:
@@ -38,7 +52,15 @@ async def getFacultyStudents(faculty) -> list:
 async def getDepartmentStudents(faculty, department) -> list:
     students = []
     # Query database
-    result = students_collection.find({dbconfig.STUDENT_SCHEMA["faculty"] : faculty, dbconfig.STUDENT_SCHEMA["department"]: department}, {'name':1, 'img':1, 'roll_no':1, '_id':0}).sort(dbconfig.STUDENT_SCHEMA["roll_no"], ASCENDING)
+    try:
+        result = students_collection.find({dbconfig.STUDENT_SCHEMA["faculty"] : faculty, dbconfig.STUDENT_SCHEMA["department"]: department}, {'name':1, 'img':1, 'roll_no':1, '_id':0}).sort(dbconfig.STUDENT_SCHEMA["roll_no"], ASCENDING)
+    except:
+        raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Database error")
+    
+    if result == None:
+        # result from db is empty -> no such data found
+        raise HTTPException(status_code=404, detail="Item not found")
+        
     students_list = await result.to_list(None)
 
     for student in students_list:
@@ -51,15 +73,11 @@ async def getStudentInfo(roll_no: str) -> dict:
     try:
         result = await students_collection.find_one({dbconfig.STUDENT_SCHEMA["roll_no"] : roll_no})
     except:
-        raise HTTPException(status_code=404, detail="Item not found")
+        raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Database error")
 
     if result == None: 
-        print("Empty result")
+        # result from db is empty -> no such data found
         raise HTTPException(status_code=404, detail="Item not found")
 
     student = student_objectify(result)
     return student
-
-
-async def callback():
-    return None
