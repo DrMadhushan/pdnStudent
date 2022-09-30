@@ -1,0 +1,65 @@
+[
+    {
+        "name": "Madhushan",
+        "roll_no" : "E17194",
+        "batch": "E17",
+        "faculty": "Engineering",
+        "department": "Computer Engineering",
+        "interests": [ "Python", "Java" ],
+        "img": "https://people.ce.pdn.ac.lk/images/students/e17/e17194.jpg"
+    },
+    {
+        "name" : "Dushintha",
+        "roll_no" : "E17064",
+        "batch" : "E17",
+        "faculty" : "Engineering",
+        "department" : "Mechanical Engineering",
+        "interests" : ["Solidworks", "Robotics", "Agriculture"],
+        "img" : "https://people.ce.pdn.ac.lk/images/students/e17/e17064.jpg"
+    },
+    {
+        "name" : "Ruwan",
+        "roll_no" : "A16194",
+        "batch" : "A16",
+        "faculty" : "Arts",
+        "department" : "Traditional Sinhala",
+        "interests" : ["Blogging", "Sinhala"],
+        "img" : "https://people.ce.pdn.ac.lk/images/students/e17/e17144.jpg"
+    },
+    {
+        "name" : "Malith",
+        "roll_no" : "E16094",
+        "batch" : "E16",
+        "faculty" : "Engineering",
+        "department" : "Mechanical Engineering",
+        "interests" : ["Solidworks", "Robotics"],
+        "img" : "https://people.ce.pdn.ac.lk/images/students/e17/e17064.jpg"
+    },
+    {
+        "name" : "Tharangi",
+        "roll_no" : "A17104",
+        "batch" : "A17",
+        "faculty" : "Arts",
+        "department" : "Mechanical Engineering",
+        "interests" : ["Solidworks", "Robotics", "Agriculture"],
+        "img" : "https://people.ce.pdn.ac.lk/images/students/e17/e17064.jpg"
+    },
+    {
+        "name" : "Supun",
+        "roll_no" : "M17144",
+        "batch" : "M17",
+        "faculty" : "Management",
+        "department" : "Business Administration",
+        "interests" : ["Product development", "Human Resources"],
+        "img" : "https://people.ce.pdn.ac.lk/images/students/e17/e17064.jpg"
+    },
+    {
+        "name" : "Raja",
+        "roll_no" : "M15234",
+        "batch" : "M15",
+        "faculty" : "Management",
+        "department" : "Human Resource Management",
+        "interests" : ["Human Resources"],
+        "img" : "https://people.ce.pdn.ac.lk/images/students/e17/e17064.jpg"
+    }
+]
