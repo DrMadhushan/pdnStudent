@@ -15,7 +15,7 @@ async def getAllStudents() -> list:
     students = []
     # Query database
     try:
-        result = students_collection.find({}, {'name':1, 'img':1, 'roll_no':1, '_id':0})
+        result = students_collection.find({}, {'name':1, 'img':1, 'roll_no':1, '_id':0}).sort(dbconfig.STUDENT_SCHEMA["roll_no"], ASCENDING)
     except:
         raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Database error")
     
