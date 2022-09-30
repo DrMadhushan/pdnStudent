@@ -9,40 +9,34 @@ app = FastAPI()
 
 @app.get("/")
 async def root():
-    return {"message": "Hello World"}
+    return {"message": "No Functionality"}
 
 @app.get("/students/")
 async def getStudents():
     # Get all students name and img link
-    students = await db.getAllStudents()
-    return students
+    return await db.getAllStudents()
 
 @app.get("/students/{roll_no}")
 async def getStudentInfo(roll_no: str):
     # returns the requested student's details
-    student = await db.getStudentInfo(roll_no)
-    return student
+    return await db.getStudentInfo(roll_no)
 
 @app.get("/students/{faculty}")
 async def getFacultyStudents(faculty: str):
     # Get all students name and img link in a given faculty
-    students = await db.getFacultyStudents(faculty)
-    return students
+    return await db.getFacultyStudents(faculty)
 
 @app.get("/{faculty}/students/{roll_no}")   # , status_code=status.HTTP_202_ACCEPTED
 async def getStudentInfo(roll_no: str, faculty: str):
     # returns the requested student's details
-    student = await db.getStudentInfo(roll_no, faculty)
-    return student
+    return db.getStudentInfo(roll_no, faculty)
 
 @app.get("/students/{faculty}/{department}")
 async def getDepartmentStudents(faculty: str, department: str):
-    # Get all students name and img link in a given department and faculty
-    students = await db.getDepartmentStudents(faculty, department)   
-    return students
+    # Get all students name and img link in a given department and faculty 
+    return await db.getDepartmentStudents(faculty, department)   
 
 @app.get("/{faculty}/{department}/students/{roll_no}")
 async def getStudentInfo(roll_no: str, faculty: str, department: str):
     # returns the requested student's details
-    student = await db.getStudentInfo(roll_no, faculty, department)
-    return student
+    return await db.getStudentInfo(roll_no, faculty, department)
