@@ -53,7 +53,7 @@ async def getDepartmentStudents(faculty, department) -> list:
     students = []
     # Query database
     try:
-        result = students_collection.find({dbconfig.STUDENT_SCHEMA["faculty"] : faculty, dbconfig.STUDENT_SCHEMA["department"]: department}, {'name':1, 'img':1, 'roll_no':1, '_id':0}).sort(dbconfig.STUDENT_SCHEMA["roll_no"], ASCENDING)
+        result = students_collection.find({{dbconfig.STUDENT_SCHEMA["faculty"] : faculty, dbconfig.STUDENT_SCHEMA["department"]: department}}, {'name':1, 'img':1, 'roll_no':1, '_id':0}).sort(dbconfig.STUDENT_SCHEMA["roll_no"], ASCENDING)
     except:
         raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Database error")
     
@@ -68,10 +68,15 @@ async def getDepartmentStudents(faculty, department) -> list:
     
     return students
 
-async def getStudentInfo(roll_no: str) -> dict:
+async def getStudentInfo(roll_no: str, faculty: str = None, department: str = None) -> dict:
     # Query database
     try:
-        result = await students_collection.find_one({dbconfig.STUDENT_SCHEMA["roll_no"] : roll_no})
+        if faculty == None:
+            result = await students_collection.find_one({ dbconfig.STUDENT_SCHEMA["roll_no"] : roll_no})
+        elif department == None:
+            result = await students_collection.find_one({ dbconfig.STUDENT_SCHEMA["roll_no"] : roll_no, dbconfig.STUDENT_SCHEMA["faculty"]: faculty})
+        else:
+            result = await students_collection.find_one({ dbconfig.STUDENT_SCHEMA["roll_no"] : roll_no, dbconfig.STUDENT_SCHEMA["faculty"]: faculty, dbconfig.STUDENT_SCHEMA["department"]: department})
     except:
         raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Database error")
 
