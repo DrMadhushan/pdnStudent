@@ -6,7 +6,6 @@ import database as db
 from pydantic import BaseModel
 
 app = FastAPI()
-oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
 @app.get("/")
 async def root():
@@ -19,7 +18,7 @@ async def getStudents():
     return students
 
 @app.get("/students/{roll_no}")
-async def getStudentInfo1(roll_no: str):
+async def getStudentInfo(roll_no: str):
     # returns the requested student's details
     student = await db.getStudentInfo(roll_no)
     return student
@@ -31,7 +30,7 @@ async def getFacultyStudents(faculty: str):
     return students
 
 @app.get("/students/{faculty}/{roll_no}")   # , status_code=status.HTTP_202_ACCEPTED
-async def getStudentInfo2(roll_no: str):
+async def getStudentInfo(roll_no: str):
     # returns the requested student's details
     student = await db.getStudentInfo(roll_no)
     return student
@@ -43,27 +42,7 @@ async def getDepartmentStudents(faculty: str, department: str):
     return students
 
 @app.get("/students/{faculty}/{department}/{roll_no}")
-async def getStudentInfo3(roll_no: str):
+async def getStudentInfo(roll_no: str):
     # returns the requested student's details
     student = await db.getStudentInfo(roll_no)
     return student
-
-class Student(BaseModel):
-    id : str
-    name : str
-    batch : str
-    faculty : str
-    department : str
-    interests : list
-    img_src : str
-
-def student_objectify(student) -> Student:
-    return {
-    "name" : student['name'],
-    "batch" : student['batch'],
-    "faculty" : student['faculty'],
-    "department" : student['department'],
-    "interests" : student['interests'],
-    "img_src" : student['img'] 
-    }
-
