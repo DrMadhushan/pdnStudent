@@ -1,6 +1,11 @@
 # pdnStudent
 A private API for student profile management
 
+<img alt="GitHub Pipenv locked dependency version" src="https://img.shields.io/github/pipenv/locked/dependency-version/DrMadhushan/pdnStudent/fastapi"> 
+<img alt="GitHub Pipenv locked dependency version" src="https://img.shields.io/github/pipenv/locked/dependency-version/DrMadhushan/pdnStudent/uvicorn?color=blue&logoColor=blue"> 
+<img alt="GitHub Pipenv locked dependency version" src="https://img.shields.io/github/pipenv/locked/dependency-version/DrMadhushan/pdnStudent/pymongo?color=g&logoColor=blue">
+
+
 Create virtual env
 
     virtualenv fastApiVenv
