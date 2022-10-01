@@ -1,49 +1,60 @@
-from time import sleep
-from urllib import response
 from fastapi.testclient import TestClient
 from main import app
-import ast
-from httpx import AsyncClient
-import asyncio
 import pytest
+from httpx import AsyncClient
 
-client = TestClient(app)
-# pytest_plugins = ('pytest_asyncio',)
+# client = TestClient(app)
 
-def test_pathDoesntExist():
-    response = client.get("/randomPath")
+@pytest.mark.anyio
+async def test_pathDoesntExist():
+    async with AsyncClient(app=app, base_url="http://test") as ac:
+        response = await ac.get("/randomPath")
+    # response = client.get("/randomPath")
     assert response.status_code == 404
     assert response.json() == { "detail": "Not Found" }
 
-def test_root():
-    response = client.get("/")
+@pytest.mark.anyio
+async def test_root():
+    async with AsyncClient(app=app, base_url="http://test") as ac:
+        response = await ac.get("/")
+    # response = await client.get("/")
     assert response.status_code == 200
     assert response.json() == { "message": "No Functionality" }
 
-def test_getStudents():
-    response = client.get("/students")
+@pytest.mark.anyio
+async def test_getStudents():
+    async with AsyncClient(app=app, base_url="http://test") as ac:
+        response = await ac.get("/students")
+    # response = await client.get("/students")
     assert response.status_code == 200
     assert response.json()[0]["name"] == "Ruwan"
 
-def test_getStudentInfo():
-    r1 = client.get("/students/E17194")
-    r2 = client.get("/Engineering/students/E17194")
-    r3 = client.get("/Engineering/Computer Engineering/students/E17194")
-    # sleep(1)
-    # print(r1)
-    # print(r2)
-    # print(r3)
-    # await asyncio.sleep(0.5)
-    # async with AsyncClient(app=app, base_url="http://test") as ac:
-    #     # response = await ac.get("/")
-    #     r1 = await ac.get("/students/E17194")
-    #     await asyncio.sleep(0.5)
-        
-    # assert response.status_code == 200
+@pytest.mark.anyio
+async def test_getStudentInfo():
+    async with AsyncClient(app=app, base_url="http://test") as ac:
+        response = await ac.get("/student/view/E17064")
+    # response = await client.get("/student/view/E17194")
+    status = response.status_code
+    assert response.status_code == 200
+    assert response.json()["name"] == "Dushintha"
 
-    assert r1.status_code == 200 
+@pytest.mark.anyio
+async def test_updateStudentInfo():
+    async with AsyncClient(app=app, base_url="http://test") as ac:
+        test_user_before = await ac.get("/student/view/E17194")
+        response = await ac.put("/student/edit/E17194", data={'new_name': "New User Name"})
+        test_user_after = await ac.get("/student/view/E17194")
+    
+    async with AsyncClient(app=app, base_url="http://test") as ac:
+        await ac.put("/student/edit/E17194", data={'new_name': test_user_before.json()["new_name"]})
+    
+    assert response.status_code == 200
+    assert test_user_after.json()["new_name"] == "New User Name"
 
-    # assert r1.json()["faculty"] == r2.json()["faculty"] == r3.json()["faculty"] == "Engineering"
-    # assert r1.json()["department"] == r2.json()["department"] == r3.json()["department"] == "Computer Engineering" 
-
-
+@pytest.mark.anyio
+async def test_getAllProfileUpdateRequests():
+    async with AsyncClient(app=app, base_url="http://test") as ac:
+        response = await ac.get("/controls/admin/profile_updates")
+    
+    assert response.status_code == 200
+    assert response.json()[0]["roll_no"] == "E17194"
