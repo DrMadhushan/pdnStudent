@@ -21,6 +21,7 @@ For asynchronous test
 
 ```python-multipart (for Form)```
 
+```pyjwt, passlib```
 
 To run the fast Api programm
 
