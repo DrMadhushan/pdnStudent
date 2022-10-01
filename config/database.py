@@ -5,10 +5,12 @@ STAFF_COLL = 'staff'
 
 STUDENT_SCHEMA = {
     "student_name" : "name",
+    "new_name" : "name_update",
     "roll_no" : "roll_no",
     "batch" : "batch",
     "faculty" : "faculty",
     "department" : "department",
     "interests" : "interests",
-    "img_link" : "img"
+    "img_link" : "img",
+    "updated" : "updated"
 }
