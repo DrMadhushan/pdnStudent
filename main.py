@@ -58,16 +58,16 @@ async def getAllProfileUpdateRequests():
 #     access_data = createJwt(user)
 #     return access_data
 
-# async def authenticateUser(email: str, password: str):
-#     if email[-9:] != "pdn.ac.lk":
-#         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="User from external organization")
+async def authenticateUser(email: str, password: str):
+    if email[-9:] != "pdn.ac.lk":
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="User from external organization")
     
-#     print("go to db")
-#     user = await db.getUserAuthData(email)
-#     print("returned user from db")
-#     if not bcrypt.verify(password, user["password"]) or user == False:
-#         return False
-#     return user
+    print("go to db")
+    user = await db.getUserAuthData(email)
+    print("returned user from db")
+    if not bcrypt.verify(password, user["password"]) or user == False:
+        return False
+    return user
     
 def createJwt(user: dict) -> dict:
     expire = datetime.utcnow() + timedelta(minutes=JWT_TOKEN_EXPIRE_MINUTES)
