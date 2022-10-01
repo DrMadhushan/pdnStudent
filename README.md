@@ -15,7 +15,7 @@ Install packages
 
 ["https://realpython.com/fastapi-python-web-apis/](FastAPI, uvicorn[standard], pymongo, motor==2.5.1 )
 
-pytest, httpx, trio
+pytest, httpx, trio, python-multipart (for Form)
 
 
 To run the fast Api programm
