@@ -2,6 +2,7 @@ import motor.motor_asyncio
 from pymongo import MongoClient, DESCENDING, ASCENDING
 from bson.objectid import ObjectId
 from student import student_meta_objectify, student_objectify
+from user import user_objectify
 import config.database as dbconfig
 from fastapi import HTTPException, status
 
@@ -34,7 +35,7 @@ async def getFacultyStudents(faculty) -> list:
     students = []
     # Query database
     try:
-        result = students_collection.find({dbconfig.STUDENT_SCHEMA["faculty"] : faculty}, {'name':1, 'img':1, 'roll_no':1, '_id':0}).sort(dbconfig.STUDENT_SCHEMA["roll_no"], ASCENDING)
+        result = await students_collection.find({dbconfig.STUDENT_SCHEMA["faculty"] : faculty}, {'name':1, 'img':1, 'roll_no':1, '_id':0}).sort(dbconfig.STUDENT_SCHEMA["roll_no"], ASCENDING)
     except:
         raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Database error")
     
@@ -53,7 +54,7 @@ async def getDepartmentStudents(faculty, department) -> list:
     students = []
     # Query database
     try:
-        result = students_collection.find({{dbconfig.STUDENT_SCHEMA["faculty"] : faculty, dbconfig.STUDENT_SCHEMA["department"]: department}}, {'name':1, 'img':1, 'roll_no':1, '_id':0}).sort(dbconfig.STUDENT_SCHEMA["roll_no"], ASCENDING)
+        result = await students_collection.find({{dbconfig.STUDENT_SCHEMA["faculty"] : faculty, dbconfig.STUDENT_SCHEMA["department"]: department}}, {'name':1, 'img':1, 'roll_no':1, '_id':0}).sort(dbconfig.STUDENT_SCHEMA["roll_no"], ASCENDING)
     except:
         raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Database error")
     
@@ -87,7 +88,7 @@ async def getStudentInfo(roll_no: str) -> dict:
 async def updateStudentInfo(roll_no, new_name):
     # Query database
     try:
-        result = students_collection.update_one(
+        result = await students_collection.update_one(
                 {dbconfig.STUDENT_SCHEMA["roll_no"]: roll_no}, 
                 {'$set' : {
                     dbconfig.STUDENT_SCHEMA["new_name"] : new_name, 
@@ -122,3 +123,17 @@ async def getAllProfileUpdateRequests():
         profiles_to_verify.append(student_meta_objectify(profile))
     
     return profiles_to_verify
+
+async def getUserAuthData(email) -> dict:
+    users_collection = db.get_collection(dbconfig.USERS_COLL)
+    try:
+        result = await users_collection.find_one({dbconfig.USER_SCHEMA["email"] : email}, {"_id" : 0})
+    except:
+        raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Database error (user data retrive)")
+    
+    if result == None:
+        return False
+    print("objectifying result")
+    user = user_objectify(result)
+    print("objectified result")
+    return user
