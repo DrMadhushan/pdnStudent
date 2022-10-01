@@ -11,7 +11,7 @@ app = FastAPI()
 async def root():
     return {"message": "No Functionality"}
 
-@app.get("/students/")
+@app.get("/students")
 async def getStudents():
     # Get all students name and img link
     return await db.getAllStudents()
@@ -31,7 +31,7 @@ async def getStudentInfo(roll_no: str):
     # returns the requested student's details
     return await db.getStudentInfo(roll_no)
 
-@app.post("/student/edit/{roll_no}")
+@app.put("/student/edit/{roll_no}")
 async def updateStudentInfo(roll_no: str, new_name: str = Form()):
     # Update the student details
     return await db.updateStudentInfo(roll_no, new_name)
