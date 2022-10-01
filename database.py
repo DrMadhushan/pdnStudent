@@ -107,8 +107,6 @@ async def updateStudentInfo(roll_no, new_name):
 async def getAllProfileUpdateRequests():
     profiles_to_verify = []
     # Query database
-    result = students_collection.find({dbconfig.STUDENT_SCHEMA["updated"] : 1}, {'name':1, 'img':1, 'roll_no':1, '_id':0})
-
     try:
         result = students_collection.find({dbconfig.STUDENT_SCHEMA["updated"] : 1}, {'name':1, 'img':1, 'roll_no':1, '_id':0})
     except:
