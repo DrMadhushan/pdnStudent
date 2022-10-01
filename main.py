@@ -48,15 +48,15 @@ async def updateStudentInfo(roll_no: str, new_name: str = Form()):
 async def getAllProfileUpdateRequests():
     return await db.getAllProfileUpdateRequests()
 
-# @app.post("/signin")
-# async def signInUser(email: str = Form(), password: str = Form()):
-#     print("user try signin")
-#     user = await authenticateUser(email, password)
-#     if user == False:
-#         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="User from external organization")
-#     print("authenticated")
-#     access_data = createJwt(user)
-#     return access_data
+@app.post("/signin")
+async def signInUser(email: str = Form(), password: str = Form()):
+    print("user try signin")
+    user = await authenticateUser(email, password)
+    if user == False:
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="User from external organization")
+    print("authenticated")
+    access_data = createJwt(user)
+    return access_data
 
 async def authenticateUser(email: str, password: str):
     if email[-9:] != "pdn.ac.lk":
