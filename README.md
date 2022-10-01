@@ -1,5 +1,5 @@
 # pdnStudent
-Student database system for profile pages
+A private API for student profile management
 
 Create virtual env
 
