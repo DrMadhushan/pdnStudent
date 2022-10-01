@@ -1,0 +1,14 @@
+[
+    {
+        "email": "e17194@eng.pdn.ac.lk",
+        "user_id": "E17194",
+        "password": "$2a$12$e0ys9orZ9uzaiQpIEIF7B.Aos6dNT4eNPV/UM7TSgXGi8VNxqGuuO",
+        "role" : "admin"
+    },
+    {
+        "email": "e17064@eng.pdn.ac.lk",
+        "user_id": "E17064",
+        "password": "$2y$10$h84g.s0k1e0Sckjevi3zhuQchCP8UmIOLpatybhbyhQHJ9UON5tC.",
+        "role" : "student"
+    }
+]
