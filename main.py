@@ -50,11 +50,11 @@ async def getAllProfileUpdateRequests():
 
 @app.post("/signin")
 async def signInUser(email: str = Form(), password: str = Form()):
-    print("user try signin")
+    # print("user try signin")
     user = await authenticateUser(email, password)
     if user == False:
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="User from external organization")
-    print("authenticated")
+    # print("authenticated")
     access_data = createJwt(user)
     return access_data
 
@@ -62,15 +62,15 @@ async def authenticateUser(email: str, password: str):
     if email[-9:] != "pdn.ac.lk":
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="User from external organization")
     
-    print("go to db")
+    # print("go to db")
     user = await db.getUserAuthData(email)
-    print("returned user from db")
+    # print("returned user from db")
     if not bcrypt.verify(password, user["password"]) or user == False:
         return False
     return user
     
 def createJwt(user: dict) -> dict:
-    expire = datetime.utcnow() + timedelta(minutes=JWT_TOKEN_EXPIRE_MINUTES)
+    expire = str(datetime.utcnow() + timedelta(minutes=JWT_TOKEN_EXPIRE_MINUTES))
     jwt_body = { "user_id" : user["user_id"], "user_email": user["email"]}
     jwt_token = jwt.encode(jwt_body, JWT_SECRET, algorithm=JWT_ALGORITHM)
-    return {"access_token" : jwt_token, "token_type" : "bearer"}
+    return {"access_token" : jwt_token, "token_type" : "bearer", "expire":expire}
