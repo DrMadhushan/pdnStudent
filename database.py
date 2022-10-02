@@ -133,7 +133,7 @@ async def getUserAuthData(email) -> dict:
     
     if result == None:
         return False
-    print("objectifying result")
+    # print("objectifying result")
     user = user_objectify(result)
-    print("objectified result")
+    # print("objectified result")
     return user
