@@ -1,8 +1,8 @@
 import motor.motor_asyncio
 from pymongo import MongoClient, DESCENDING, ASCENDING
 from bson.objectid import ObjectId
-from student import student_meta_objectify, student_objectify
-from user import user_objectify
+from models.student import student_meta_objectify, student_objectify
+from models.user import user_objectify
 import config.database as dbconfig
 from fastapi import HTTPException, status
 

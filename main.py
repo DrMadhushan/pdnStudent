@@ -1,17 +1,10 @@
 # main.py
 
-from datetime import datetime, timedelta
 from fastapi import Depends, FastAPI, status, Form, HTTPException
 from fastapi.security import OAuth2PasswordBearer
-from pydantic import BaseModel
-import jwt
-from passlib.hash import bcrypt
 
-import database as db
-
-JWT_SECRET = "9afd9e37-19d5-4159-8c04-906f5b4c648e"
-JWT_ALGORITHM = "HS256"
-JWT_TOKEN_EXPIRE_MINUTES = 30
+import services.database as db
+import services.auth as auth
 
 app = FastAPI()
 
@@ -51,26 +44,6 @@ async def getAllProfileUpdateRequests():
 @app.post("/signin")
 async def signInUser(email: str = Form(), password: str = Form()):
     # print("user try signin")
-    user = await authenticateUser(email, password)
-    if user == False:
-        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="User from external organization")
-    # print("authenticated")
-    access_data = createJwt(user)
+    access_data = await auth.signInUser(email, password)
     return access_data
 
-async def authenticateUser(email: str, password: str):
-    if email[-9:] != "pdn.ac.lk":
-        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="User from external organization")
-    
-    # print("go to db")
-    user = await db.getUserAuthData(email)
-    # print("returned user from db")
-    if not bcrypt.verify(password, user["password"]) or user == False:
-        return False
-    return user
-    
-def createJwt(user: dict) -> dict:
-    expire = str(datetime.utcnow() + timedelta(minutes=JWT_TOKEN_EXPIRE_MINUTES))
-    jwt_body = { "user_id" : user["user_id"], "user_email": user["email"]}
-    jwt_token = jwt.encode(jwt_body, JWT_SECRET, algorithm=JWT_ALGORITHM)
-    return {"access_token" : jwt_token, "token_type" : "bearer", "expire":expire}
