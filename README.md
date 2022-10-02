@@ -1,11 +1,18 @@
 # pdnStudent
 A private API for student profile management
 
-<img alt="GitHub Pipenv locked dependency version" src="https://img.shields.io/github/pipenv/locked/dependency-version/DrMadhushan/pdnStudent/fastapi"> 
-<img alt="GitHub Pipenv locked dependency version" src="https://img.shields.io/github/pipenv/locked/dependency-version/DrMadhushan/pdnStudent/uvicorn?color=blue&logoColor=blue"> 
-<img alt="GitHub Pipenv locked dependency version" src="https://img.shields.io/github/pipenv/locked/dependency-version/DrMadhushan/pdnStudent/pymongo?color=g&logoColor=blue">
+<div style="display: flex; flex-flow: row wrap; justify-content: center; ">
+<img style="padding-right:5px; padding-bottom:5px" alt="GitHub Pipenv locked dependency version" src="https://img.shields.io/github/pipenv/locked/dependency-version/DrMadhushan/pdnStudent/fastapi"> 
+<img style="padding-right:5px; padding-bottom:5px" alt="GitHub Pipenv locked dependency version" src="https://img.shields.io/github/pipenv/locked/dependency-version/DrMadhushan/pdnStudent/uvicorn?color=blue&logoColor=blue"> 
+<img style="padding-right:5px; padding-bottom:5px" alt="GitHub Pipenv locked dependency version" src="https://img.shields.io/github/pipenv/locked/dependency-version/DrMadhushan/pdnStudent/pymongo?color=g&logoColor=blue">
 
-
+<img style="padding-right:5px; padding-bottom:5px" alt="GitHub Pipenv locked dependency version" src="https://img.shields.io/github/pipenv/locked/dependency-version/DrMadhushan/pdnStudent/python-multipart"> 
+<img style="padding-right:5px; padding-bottom:5px" alt="GitHub Pipenv locked dependency version" src="https://img.shields.io/github/pipenv/locked/dependency-version/DrMadhushan/pdnStudent/pyjwt?color=blue&logoColor=blue"> 
+<img style="padding-right:5px; padding-bottom:5px" alt="GitHub Pipenv locked dependency version" src="https://img.shields.io/github/pipenv/locked/dependency-version/DrMadhushan/pdnStudent/passlib?color=g&logoColor=blue">
+</div>
+<div style="display: flex; flex-flow: row wrap; justify-content: center;">
+<img alt="GitHub Pipenv locked dependency version" src="https://img.shields.io/github/pipenv/locked/dependency-version/DrMadhushan/pdnStudent/dev/pytest?color=g&logoColor=blue">
+</div>
 Create virtual env
 
     virtualenv fastApiVenv
