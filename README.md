@@ -25,7 +25,7 @@ Install packages
 
     pin install <package name>
 
-["https://realpython.com/fastapi-python-web-apis/](FastAPI, uvicorn[standard], pymongo, motor==2.5.1 )
+["https://realpython.com/fastapi-python-web-apis/"](FastAPI, uvicorn[standard], pymongo, motor==2.5.1 )
 
 For asynchronous test
 
