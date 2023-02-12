@@ -12,6 +12,7 @@ motor = "2.5.1"
 python-multipart = "0.0.5"
 pyjwt = "2.5.0"
 passlib = "1.7.4"
+typing_extensions = "4.4.0"
 
 [dev-packages]
 pytest = "7.1.3"
