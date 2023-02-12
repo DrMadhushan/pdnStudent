@@ -1,9 +1,11 @@
 from datetime import datetime, timedelta
 import jwt
 from passlib.hash import bcrypt
-from fastapi import HTTPException, status
+from fastapi import HTTPException, status, Depends
 import services.database as db
+from fastapi.security import OAuth2PasswordBearer
 import config.auth as authconfig
+
 
 async def authenticateUser(email: str, password: str):
     if email[-9:] != "pdn.ac.lk":
@@ -26,7 +28,12 @@ async def signInUser(email: str, password: str):
     # print("user try signin")
     user = await authenticateUser(email, password)
     if user == False:
-        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="User from external organization")
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid user credentials")
     # print("authenticated")
     access_data = createJwt(user)
     return access_data
+
+async def getCurrentUser(token: str):
+    payload = jwt.decode(token, key=authconfig.JWT_SECRET, algorithms=[authconfig.JWT_ALGORITHM])
+    # print("payload = ", payload)
+    return payload
