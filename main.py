@@ -8,9 +8,12 @@ import services.auth as auth
 
 app = FastAPI()
 
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
+
 @app.get("/")
-async def root():
-    return {"message": "No Functionality"}
+async def root(token: str = Depends(oauth2_scheme)):
+    user_details = await auth.getCurrentUser(token)
+    return user_details
 
 @app.get("/students")
 async def getStudents():
