@@ -22,7 +22,7 @@ Students
     image_url
     image_url_new
 
-    getAllStudents(faculty, dept)
+    get_all_students(faculty, dept)
     getStudentDetails()
     getStudentProjects()
     updateStudentDetails(details)

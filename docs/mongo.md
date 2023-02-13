@@ -20,11 +20,10 @@ Or, if you don't want/need a background service you can just run:
 
     mongod --config /opt/homebrew/etc/mongod.conf
 
-To run mongodb commands, open a new table and run 
+To run mongodb commands, open a new table and run
 
     mongosh
 
-To check your databases run 
-    
-    show dbs
+To check your databases run
 
+    show dbs

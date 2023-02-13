@@ -1,12 +1,11 @@
-# main.py
+"""_summary."""
 
-from fastapi import Depends, FastAPI, status, Form, HTTPException
+from fastapi import Depends, FastAPI
 from fastapi.security import OAuth2PasswordBearer
 
-import services.database as db
-import services.auth as auth
-from router import user, student
-from router.public import public
+from router import public, student, user
+from services import auth
+from services import database as db
 
 app = FastAPI()
 app.include_router(user.router)
@@ -19,10 +18,23 @@ oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
 @app.get("/")
 async def root(token: str = Depends(oauth2_scheme)):
-    user_details = await auth.getCurrentUser(token)
+    """_summary.
+
+    Args:
+        token (str, optional): _description_. Defaults to Depends(oauth2_scheme).
+
+    Returns:
+        _type_: _description_
+    """
+    user_details = await auth.get_current_user(token)
     return user_details
 
 
 @app.get("/controls/admin/profile_updates")
-async def getAllProfileUpdateRequests():
-    return await db.getAllProfileUpdateRequests()
+async def get_all_profile_update_requests():
+    """_summary.
+
+    Returns:
+        _type_: _description_
+    """
+    return await db.get_all_profile_update_requests()

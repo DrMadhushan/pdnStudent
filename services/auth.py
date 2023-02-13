@@ -1,13 +1,27 @@
+"""_summary."""
 from datetime import datetime, timedelta
+
 import jwt
+from fastapi import HTTPException, status
 from passlib.hash import bcrypt
-from fastapi import HTTPException, status, Depends
-import services.database as db
-from fastapi.security import OAuth2PasswordBearer
-import config.auth as authconfig
+
+from config import auth as authconfig
+from services import database as db
 
 
-async def authenticateUser(email: str, password: str):
+async def authenticate_user(email: str, password: str):
+    """_summary.
+
+    Args:
+        email (str): _description_
+        password (str): _description_
+
+    Raises:
+        HTTPException: _description_
+
+    Returns:
+        _type_: _description_
+    """
     if email[-9:] != "pdn.ac.lk":
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
@@ -15,14 +29,22 @@ async def authenticateUser(email: str, password: str):
         )
 
     # print("go to db")
-    user = await db.getUserAuthData(email)
+    user = await db.get_user_auth_data(email)
     # print("returned user from db")
-    if not bcrypt.verify(password, user["password"]) or user == False:
+    if not bcrypt.verify(password, user["password"]) or user is False:
         return False
     return user
 
 
-def createJwt(user: dict) -> dict:
+def create_jwt(user: dict) -> dict:
+    """_summary.
+
+    Args:
+        user (dict): _description_
+
+    Returns:
+        dict: _description_
+    """
     expire = str(
         datetime.utcnow() + timedelta(minutes=authconfig.JWT_TOKEN_EXPIRE_MINUTES)
     )
@@ -37,19 +59,39 @@ def createJwt(user: dict) -> dict:
     return {"access_token": jwt_token, "token_type": "bearer", "expire": expire}
 
 
-async def signInUser(email: str, password: str):
+async def sign_in_user(email: str, password: str):
+    """_summary.
+
+    Args:
+        email (str): _description_
+        password (str): _description_
+
+    Raises:
+        HTTPException: _description_
+
+    Returns:
+        _type_: _description_
+    """
     # print("user try signin")
-    user = await authenticateUser(email, password)
-    if user == False:
+    user = await authenticate_user(email, password)
+    if user is False:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid user credentials"
         )
     # print("authenticated")
-    access_data = createJwt(user)
+    access_data = create_jwt(user)
     return access_data
 
 
-async def getCurrentUser(token: str):
+async def get_current_user(token: str):
+    """_summary.
+
+    Args:
+        token (str): _description_
+
+    Returns:
+        _type_: _description_
+    """
     payload = jwt.decode(
         token, key=authconfig.JWT_SECRET, algorithms=[authconfig.JWT_ALGORITHM]
     )

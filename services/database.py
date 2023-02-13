@@ -1,18 +1,27 @@
+"""_summary."""
 import motor.motor_asyncio
-from pymongo import MongoClient, DESCENDING, ASCENDING
-from bson.objectid import ObjectId
+from fastapi import HTTPException, status
+from pymongo import ASCENDING
+
+import config.database as dbconfig
 from models.student import student_meta_objectify, student_objectify
 from models.user import user_objectify
-import config.database as dbconfig
-from fastapi import HTTPException, status
-
 
 client = motor.motor_asyncio.AsyncIOMotorClient(dbconfig.HOST)
 db = client.get_database(dbconfig.DATABASE_NAME)
 students_collection = db.get_collection(dbconfig.STUDENTS_COLL)
 
 
-async def getAllStudents() -> list:
+async def get_all_students() -> list:
+    """_summary.
+
+    Raises:
+        HTTPException: _description_
+        HTTPException: _description_
+
+    Returns:
+        list: _description_
+    """
     # Get all students name and img link in a given department and faculty
     students = []
     # Query database
@@ -20,12 +29,12 @@ async def getAllStudents() -> list:
         result = students_collection.find(
             {}, {"name": 1, "img": 1, "roll_no": 1, "_id": 0}
         ).sort(dbconfig.STUDENT_SCHEMA["roll_no"], ASCENDING)
-    except:
+    except Exception as exc:
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Database error"
-        )
+        ) from exc
 
-    if result == None:
+    if result is None:
         # result from db is empty -> no such data found
         raise HTTPException(status_code=404, detail="Item not found")
 
@@ -37,7 +46,19 @@ async def getAllStudents() -> list:
     return students
 
 
-async def getFacultyStudents(faculty) -> list:
+async def get_faculty_students(faculty) -> list:
+    """_summary.
+
+    Args:
+        faculty (_type_): _description_
+
+    Raises:
+        HTTPException: _description_
+        HTTPException: _description_
+
+    Returns:
+        list: _description_
+    """
     students = []
     # Query database
     try:
@@ -46,12 +67,12 @@ async def getFacultyStudents(faculty) -> list:
             {dbconfig.STUDENT_SCHEMA["faculty"]: faculty},
             projection={"name": 1, "img": 1, "roll_no": 1, "_id": 0},
         ).sort(dbconfig.STUDENT_SCHEMA["roll_no"], ASCENDING)
-    except:
+    except Exception as exc:
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Database error"
-        )
+        ) from exc
 
-    if result == None:
+    if result is None:
         # result from db is empty -> no such data found
         raise HTTPException(status_code=404, detail="Item not found")
 
@@ -63,7 +84,20 @@ async def getFacultyStudents(faculty) -> list:
     return students
 
 
-async def getDepartmentStudents(faculty, department) -> list:
+async def get_department_students(faculty, department) -> list:
+    """_summary.
+
+    Args:
+        faculty (_type_): _description_
+        department (_type_): _description_
+
+    Raises:
+        HTTPException: _description_
+        HTTPException: _description_
+
+    Returns:
+        list: _description_
+    """
     students = []
     # Query database
     try:
@@ -75,13 +109,13 @@ async def getDepartmentStudents(faculty, department) -> list:
             },
             {"name": 1, "img": 1, "roll_no": 1, "_id": 0},
         ).sort(dbconfig.STUDENT_SCHEMA["roll_no"], ASCENDING)
-    except:
+    except Exception as exc:
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-            detail="Database error: getDepartmentStudents",
-        )
+            detail="Database error: get_department_students",
+        ) from exc
 
-    if result == None:
+    if result is None:
         # result from db is empty -> no such data found
         raise HTTPException(status_code=404, detail="Item not found")
 
@@ -93,19 +127,31 @@ async def getDepartmentStudents(faculty, department) -> list:
     return students
 
 
-async def getStudentInfo(roll_no: str) -> dict:
+async def get_student_info(roll_no: str) -> dict:
+    """_summary.
+
+    Args:
+        roll_no (str): _description_
+
+    Raises:
+        HTTPException: _description_
+        HTTPException: _description_
+
+    Returns:
+        dict: _description_
+    """
     # Query database
     try:
         result = await students_collection.find_one(
             {dbconfig.STUDENT_SCHEMA["roll_no"]: roll_no}
         )
-    except:
+    except Exception as exc:
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail="Database error when get student",
-        )
+        ) from exc
 
-    if result == None:
+    if result is None:
         # result from db is empty -> no such data found
         raise HTTPException(status_code=404, detail="Item not found")
 
@@ -115,9 +161,24 @@ async def getStudentInfo(roll_no: str) -> dict:
     return student
 
 
-async def updateStudentInfo(roll_no: str, update: dict):
+async def update_student_info(roll_no: str, update: dict):
+    """_summary.
+
+    Args:
+        roll_no (str): _description_
+        update (dict): _description_
+
+    Raises:
+        HTTPException: _description_
+        HTTPException: _description_
+
+    Returns:
+        _type_: _description_
+    """
     # Query database
-    modification = {}
+    modification = update
+    print(modification)
+    new_name = update
     # for key in update.keys():
 
     try:
@@ -130,19 +191,27 @@ async def updateStudentInfo(roll_no: str, update: dict):
                 }
             },
         )
-    except HTTPException:
+    except HTTPException as exc:
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail="Database error"
-        )
+        ) from exc
 
-    if result == None:
+    if result is None:
         # result from db is empty -> no such data found
         raise HTTPException(status_code=404, detail="Item not found")
 
     return {"message": "Successfully updated your profile!"}
 
 
-async def getAllProfileUpdateRequests():
+async def get_all_profile_update_requests():
+    """_summary.
+
+    Raises:
+        HTTPException: _description_
+
+    Returns:
+        _type_: _description_
+    """
     profiles_to_verify = []
     # Query database
     try:
@@ -150,13 +219,13 @@ async def getAllProfileUpdateRequests():
             {dbconfig.STUDENT_SCHEMA["updated"]: 1},
             {"name": 1, "img": 1, "roll_no": 1, "_id": 0},
         )
-    except:
+    except Exception as exc:
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail="Database error (profile update check)",
-        )
+        ) from exc
 
-    if result == None:
+    if result is None:
         # result from db is empty -> no such data found
         return {"message": "No recent update requests"}
 
@@ -168,19 +237,30 @@ async def getAllProfileUpdateRequests():
     return profiles_to_verify
 
 
-async def getUserAuthData(email) -> dict:
+async def get_user_auth_data(email):
+    """_summary.
+
+    Args:
+        email (_type_): _description_
+
+    Raises:
+        HTTPException: _description_
+
+    Returns:
+        dict: _description_
+    """
     users_collection = db.get_collection(dbconfig.USERS_COLL)
     try:
         result = await users_collection.find_one(
             {dbconfig.USER_SCHEMA["email"]: email}, {"_id": 0}
         )
-    except:
+    except Exception as exc:
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail="Database error (user data retrive)",
-        )
+        ) from exc
 
-    if result == None:
+    if result is None:
         return False
     # print("objectifying result")
     user = user_objectify(result)

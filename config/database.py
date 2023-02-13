@@ -1,3 +1,4 @@
+"""_summary."""
 HOST = "mongodb://localhost:27017"
 DATABASE_NAME = "pdnPeople"
 STUDENTS_COLL = "students"

@@ -1,7 +1,9 @@
-from fastapi import APIRouter, Depends, Form
+"""_summary."""
+from fastapi import APIRouter, Depends
 from fastapi.security import OAuth2PasswordBearer
-import services.auth as auth
-import services.database as db
+
+# from services import auth
+# from services import database as db
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
@@ -14,10 +16,18 @@ router = APIRouter(
 
 
 @router.put("/edit/{roll_no}")
-async def updateStudentInfo(
-    roll_no: str, update: dict, token: str = Depends(oauth2_scheme)
-):
+async def update_student_info(roll_no: str, update: dict):
+    """_summary.
+
+    Args:
+        roll_no (str): _description_
+        update (dict): _description_
+        token (str, optional): _description_. Defaults to Depends(oauth2_scheme).
+
+    Returns:
+        _type_: _description_
+    """
     # Update the student details
-    print("update = ", type(update))
+    print("update = ", type(update), roll_no)
     return update
-    return await db.updateStudentInfo(roll_no, new_name)
+    # return await db.update_student_info(roll_no, update)
