@@ -1,14 +1,29 @@
 [
     {
+        "display_name" : "Madhushan",
         "name": "Madhushan",
-        "name_update" : "",
         "roll_no" : "E17194",
         "batch": "E17",
         "faculty": "Engineering",
         "department": "Computer Engineering",
         "interests": [ "Python", "Java" ],
-        "img": "https://people.ce.pdn.ac.lk/images/students/e17/e17194.jpg",
-        "updated" : 0
+        "img": "e17194.jpg",
+        "bio": "this is a small paragraph about the student.",
+        "residence": "kandy",
+        "resume": "",
+        "social": {
+            "linkedin": "",
+            "github": "",
+            "facebook": "",
+            "blog": "",
+            "email": ""
+        },
+        "updated" : 0,
+        "update" : {
+            "display_name": "Madhushan Ramalingam",
+            "interests": [ "Python", "Kotlin"],
+            "img": "e17194.jpg"
+        }
     },
     {
         "name" : "Dushintha",
